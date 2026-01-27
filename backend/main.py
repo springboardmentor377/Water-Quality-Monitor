@@ -1,42 +1,36 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI,Depends
 from sqlalchemy.orm import Session
-from database import Base, engine, SessionLocal
-from models import User
+from database import Base,engine,SessionLocal
+from models import Users,WaterStations
+from fetch_data import fetch_waterstations
 from fastapi.middleware.cors import CORSMiddleware
 
+app=FastAPI()
 
-app = FastAPI()
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+CORSMiddleware,
+allow_origins=["*"],
+allow_methods=["*"],
+allow_headers=["*"]
 )
 
 Base.metadata.create_all(bind=engine)
+fetch_waterstations()
 
 def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-@app.post("/register")
-def register(username: str, password: str, db: Session = Depends(get_db)):
-    user = User(username=username, password=password)
-    db.add(user)
-    db.commit()
-    return {"msg": "User created"}
+ db=SessionLocal()
+ try: yield db
+ finally: db.close()
 
 @app.post("/login")
-def login(username: str, password: str, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.username == username).first()
-    if not user or user.password != password:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-    return {"msg": "Login success"}
+def login(username:str,password:str,db:Session=Depends(get_db)):
+ user=db.query(Users).filter(Users.name==username).first()
+ if not user:
+    user=Users(name=username,password=password)
+    db.add(user)
+    db.commit()
+ return {"success":True}
 
-@app.get("/")
-def root():
-    return {"status": "Water Quality Monitor API running"}
+@app.get("/stations")
+def stations(db:Session=Depends(get_db)):
+ return db.query(WaterStations).all()
