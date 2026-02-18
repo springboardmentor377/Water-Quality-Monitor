@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+sqlmodel
+PyJWT
+python-multipart
+aiosqlite
+aiocache
