@@ -45,3 +45,11 @@ class Alert(Base):
     message = Column(String)
     status = Column(String, default="active") # active, resolved
     created_at = Column(String) # Timestamp string
+
+class Collaboration(Base):
+    __tablename__ = "collaborations"
+    id = Column(Integer, primary_key=True)
+    ngo_name = Column(String)
+    project_name = Column(String)
+    contact_email = Column(String)
+    created_at = Column(String)

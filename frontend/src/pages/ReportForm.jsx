@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
-import { stationData } from "../components/Stationmap";
 
 export default function ReportForm() {
   const [description, setDescription] = useState("");
@@ -11,20 +10,35 @@ export default function ReportForm() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [stations, setStations] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchStations = async () => {
+      try {
+        const response = await api.get("/stations/");
+        setStations(response.data);
+      } catch (err) {
+        console.error("Failed to fetch stations", err);
+      }
+    };
+    fetchStations();
+  }, []);
 
   const handleStationChange = (e) => {
     const selectedName = e.target.value;
     setStationName(selectedName);
 
     if (selectedName) {
-      const station = stationData.find(s => s.station_name === selectedName);
+      const station = stations.find(s => s.name === selectedName);
       if (station) {
-        // Auto-fill location with territory + station name parts
-        setLocation(`${station.station_name}, ${station.territory_name}`);
+        // Auto-fill location
+        // Note: The new station model from API might strictly have 'name', 'lat', 'lng'.
+        // We use the name as location or just keep it simple.
+        setLocation(station.name);
 
         // Auto-detect water source
-        const nameLower = station.station_name.toLowerCase();
+        const nameLower = station.name.toLowerCase();
         if (nameLower.includes("river") || nameLower.includes("ganga") ||
           nameLower.includes("ghagra") || nameLower.includes("kosi") ||
           nameLower.includes("son") || nameLower.includes("punpun") ||
@@ -200,9 +214,9 @@ export default function ReportForm() {
               required
             >
               <option value="">Select a station...</option>
-              {stationData.map((station) => (
-                <option key={station.station_id} value={station.station_name}>
-                  {station.station_name}
+              {stations.map((station) => (
+                <option key={station.id} value={station.name}>
+                  {station.name}
                 </option>
               ))}
             </select>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Stationmap, { stationData } from "../components/Stationmap";
+import Stationmap from "../components/Stationmap";
 import WaterQualityChart from "../components/WaterQualityChart";
 import WaterQualityRadar from "../components/WaterQualityRadar";
 import api from "../services/api";

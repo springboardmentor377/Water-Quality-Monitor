@@ -7,3 +7,6 @@ passlib[bcrypt]
 pydantic
 python-dotenv
 python-multipart
+# Milestone 4 dependencies
+scikit-learn
+numpy

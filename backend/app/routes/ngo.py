@@ -64,3 +64,51 @@ def get_ngo_projects(
     """
     projects = db.query(NGOProject).all()
     return projects
+
+
+from app.models import Collaboration
+from app.schemas import CollaborationCreate, CollaborationResponse
+from datetime import datetime
+
+@router.post("/collaboration", response_model=CollaborationResponse, status_code=status.HTTP_201_CREATED)
+def create_collaboration(
+    data: CollaborationCreate,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(require_role(["ngo"]))
+):
+    """
+    Create a new collaboration opportunity (NGO only)
+    """
+    logger.info(f"Collaboration creation attempt by {current_user['email']}")
+    
+    new_collaboration = Collaboration(
+        ngo_name=data.ngo_name,
+        project_name=data.project_name,
+        contact_email=data.contact_email,
+        created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    )
+    
+    try:
+        db.add(new_collaboration)
+        db.commit()
+        db.refresh(new_collaboration)
+        logger.info(f"Collaboration created successfully: {new_collaboration.project_name}")
+        return new_collaboration
+    
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Collaboration creation error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="An error occurred during collaboration creation"
+        )
+
+@router.get("/collaborations", response_model=List[CollaborationResponse])
+def get_collaborations(
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(require_role(["ngo"]))
+):
+    """
+    Get all collaborations (NGO only)
+    """
+    return db.query(Collaboration).all()

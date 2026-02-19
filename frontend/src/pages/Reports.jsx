@@ -78,10 +78,10 @@ export default function Reports() {
             <div className="absolute top-2 right-2 flex gap-2">
               <span
                 className={`px-2 py-0.5 rounded text-xs font-semibold text-white uppercase tracking-wider ${r.status === "pending"
-                    ? "bg-yellow-500"
-                    : r.status === "verified"
-                      ? "bg-green-600"
-                      : "bg-red-600"
+                  ? "bg-yellow-500"
+                  : r.status === "verified"
+                    ? "bg-green-600"
+                    : "bg-red-600"
                   }`}
               >
                 {r.status}
@@ -108,7 +108,7 @@ export default function Reports() {
 
             {/* Action Buttons (Stop Propagation to prevent opening modal) */}
             <div className="flex gap-2 flex-wrap" onClick={(e) => e.stopPropagation()}>
-              {(role === "authority" || role === "admin" || role === "ngo") &&
+              {(role === "authority" || role === "admin") &&
                 r.status === "pending" && (
                   <>
                     <button
@@ -165,10 +165,10 @@ export default function Reports() {
                 <div>
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider ${selectedReport.status === "pending"
-                        ? "bg-yellow-500"
-                        : selectedReport.status === "verified"
-                          ? "bg-green-600"
-                          : "bg-red-600"
+                      ? "bg-yellow-500"
+                      : selectedReport.status === "verified"
+                        ? "bg-green-600"
+                        : "bg-red-600"
                       }`}
                   >
                     {selectedReport.status}
@@ -207,7 +207,7 @@ export default function Reports() {
 
               {/* Modal Actions */}
               <div className="mt-8 pt-6 border-t border-gray-100 flex gap-3">
-                {(role === "authority" || role === "admin" || role === "ngo") &&
+                {(role === "authority" || role === "admin") &&
                   selectedReport.status === "pending" && (
                     <>
                       <button

@@ -218,7 +218,7 @@ def report_action(
     report_id: int = Form(...),
     verified: bool = Form(...),
     db: Session = Depends(get_db),
-    current_user: dict = Depends(require_role(["authority", "admin", "ngo"]))
+    current_user: dict = Depends(require_role(["authority", "admin"]))
 ):
     """
     Verify or reject a pollution report

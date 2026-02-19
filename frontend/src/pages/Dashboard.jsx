@@ -5,7 +5,8 @@ import {
 } from "lucide-react";
 import {
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend,
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, ReferenceLine
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, ReferenceLine,
+  LineChart, Line, Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis
 } from "recharts";
 import api from "../services/api";
 
@@ -23,11 +24,17 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+
+
+
   useEffect(() => {
     fetchDashboardData();
   }, []);
 
+
+
   const fetchDashboardData = async () => {
+    setLoading(true);
     try {
       const response = await api.get("/dashboard-data");
       setData(response.data);
@@ -73,9 +80,13 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto space-y-8">
 
         {/* HEADER */}
-        <div>
-          <h1 className="text-3xl font-bold">Dashboard</h1>
-          <p className="text-slate-400 text-sm">Overview of water quality monitoring system</p>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold">Dashboard</h1>
+            <p className="text-slate-400 text-sm">Overview of water quality monitoring system</p>
+          </div>
+
+
         </div>
 
         {/* STATS CARDS */}
@@ -154,6 +165,78 @@ export default function Dashboard() {
                 <RechartsTooltip contentStyle={{ backgroundColor: '#1e293b', border: 'none' }} itemStyle={{ color: '#fff' }} />
                 <Legend />
               </PieChart>
+            </ResponsiveContainer>
+          </ChartCard>
+
+        </div>
+
+        {/* LINE & RADAR CHARTS */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          {/* Line Chart - Trends */}
+          <ChartCard title="Water Quality Trends (Last 24h)">
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={charts.line_chart}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                <XAxis dataKey="time" stroke="#94a3b8" />
+                <YAxis stroke="#94a3b8" />
+                <RechartsTooltip contentStyle={{ backgroundColor: '#1e293b', border: 'none' }} itemStyle={{ color: '#fff' }} />
+                <Legend />
+                <Line type="monotone" dataKey="pH" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="Turbidity" stroke="#82ca9d" />
+                <Line type="monotone" dataKey="DO" stroke="#ffc658" />
+              </LineChart>
+            </ResponsiveContainer>
+          </ChartCard>
+
+          {/* Radar Chart - Parameter Analysis */}
+          <ChartCard title="Parameter Analysis vs Safe Limits">
+            <ResponsiveContainer width="100%" height={300}>
+              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={charts.radar_chart}>
+                <PolarGrid stroke="#334155" />
+                <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8' }} />
+                <PolarRadiusAxis angle={30} domain={[0, 'auto']} tick={{ fill: '#94a3b8' }} />
+                <Radar name="Current Avg" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                <Radar name="Safe Limit" dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
+                <Legend />
+                <RechartsTooltip contentStyle={{ backgroundColor: '#1e293b', border: 'none' }} itemStyle={{ color: '#fff' }} />
+              </RadarChart>
+            </ResponsiveContainer>
+          </ChartCard>
+
+        </div>
+
+        {/* LINE & RADAR CHARTS */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          {/* Line Chart - Trends */}
+          <ChartCard title="Water Quality Trends (Last 24h)">
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={charts.line_chart}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                <XAxis dataKey="time" stroke="#94a3b8" />
+                <YAxis stroke="#94a3b8" />
+                <RechartsTooltip contentStyle={{ backgroundColor: '#1e293b', border: 'none' }} itemStyle={{ color: '#fff' }} />
+                <Legend />
+                <Line type="monotone" dataKey="pH" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="Turbidity" stroke="#82ca9d" />
+                <Line type="monotone" dataKey="DO" stroke="#ffc658" />
+              </LineChart>
+            </ResponsiveContainer>
+          </ChartCard>
+
+          {/* Radar Chart - Parameter Analysis */}
+          <ChartCard title="Parameter Analysis vs Safe Limits">
+            <ResponsiveContainer width="100%" height={300}>
+              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={charts.radar_chart}>
+                <PolarGrid stroke="#334155" />
+                <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8' }} />
+                <PolarRadiusAxis angle={30} domain={[0, 'auto']} tick={{ fill: '#94a3b8' }} />
+                <Radar name="Current Avg" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                <Radar name="Safe Limit" dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
+                <Legend />
+                <RechartsTooltip contentStyle={{ backgroundColor: '#1e293b', border: 'none' }} itemStyle={{ color: '#fff' }} />
+              </RadarChart>
             </ResponsiveContainer>
           </ChartCard>
 

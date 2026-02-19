@@ -138,3 +138,28 @@ class AlertResponse(BaseModel):
     class Config:
         from_attributes = True
 
+
+class CollaborationCreate(BaseModel):
+    """Schema for creating a collaboration"""
+    ngo_name: str = Field(..., min_length=2, max_length=200)
+    project_name: str = Field(..., min_length=2, max_length=200)
+    contact_email: EmailStr
+    
+    @validator('ngo_name', 'project_name')
+    def validate_names(cls, v):
+        if not v.strip():
+            raise ValueError('Name cannot be empty or whitespace')
+        return ' '.join(v.split())
+
+
+class CollaborationResponse(BaseModel):
+    """Schema for collaboration response"""
+    id: int
+    ngo_name: str
+    project_name: str
+    contact_email: str
+    created_at: str
+    
+    class Config:
+        from_attributes = True
+
