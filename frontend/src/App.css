@@ -1,0 +1,24 @@
+/* Completely clean App.css - no images, no centering */
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: none;
+  background-image: none;
+}
+
+/* Ensure no images or backgrounds anywhere */
+* {
+  background-image: none !important;
+}
+
+/* Allow only specific components to have backgrounds */
+.bg-slate-950,
+.bg-slate-800,
+.bg-blue-900,
+.bg-white,
+[class*="bg-"] {
+  background-image: none !important;
+}

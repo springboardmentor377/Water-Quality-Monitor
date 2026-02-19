@@ -1,0 +1,25 @@
+import { Navigate } from "react-router-dom";
+import { isAuthenticated, getUserRole } from "../services/auth";
+
+function ProtectedRoute({ children, roles }) {
+  // Check if user is authenticated (with valid, non-expired token)
+  if (!isAuthenticated()) {
+    console.log("Not authenticated - redirecting to login");
+    return <Navigate to="/" replace />;
+  }
+
+  // Check role-based access if roles are specified
+  if (roles && roles.length > 0) {
+    const userRole = getUserRole();
+    
+    if (!userRole || !roles.includes(userRole)) {
+      console.log(`Access denied - user role '${userRole}' not in allowed roles:`, roles);
+      return <Navigate to="/dashboard" replace />;
+    }
+  }
+
+  // User is authenticated and authorized
+  return children;
+}
+
+export default ProtectedRoute;
