@@ -1,15 +1,3 @@
-
-.env
-backend/.env
-__pycache__/
-backend/__pycache__/
-*.pyc
-Water-Quality-Monitor/
-
-**/__pycache__/**
-**/.ipynb_checkpoints/**
-**/database.db
-
 # Logs
 logs/
 *.log
