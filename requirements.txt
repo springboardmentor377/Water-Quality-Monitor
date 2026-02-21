@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+passlib==1.7.4
+bcrypt==4.0.1
+python-jose
+python-multipart
+alembic
+pydantic[email]
+python-dotenv
+pillow
+requests
+aiofiles
+apscheduler
+email-validator
