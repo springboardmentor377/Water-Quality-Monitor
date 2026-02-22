@@ -1,0 +1,121 @@
+/* ===== Reports List – User & Report Management ===== */
+.ngo-page {
+  padding: 0;
+  background: transparent;
+  min-height: auto;
+}
+
+.ngo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.ngo-header h2 {
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--color-text);
+}
+
+.create-btn {
+  background: var(--color-primary-light);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.create-btn:hover {
+  background: var(--color-primary-hover);
+}
+
+.ngo-card {
+  background: var(--color-surface-elevated);
+  border-radius: var(--radius-lg);
+  padding: 0;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border-light);
+  overflow: hidden;
+}
+
+.ngo-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ngo-card thead {
+  background: var(--color-surface);
+}
+
+.ngo-card th {
+  text-align: left;
+  padding: 14px 18px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.ngo-card td {
+  padding: 14px 18px;
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.ngo-card tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.ngo-card tbody tr:hover {
+  background: var(--color-surface);
+}
+
+.ngo-card .bg-green-500 {
+  background: var(--color-success) !important;
+  color: white;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: opacity 0.2s;
+}
+
+.ngo-card .bg-green-500:hover {
+  opacity: 0.9;
+}
+
+.ngo-card .bg-red-500 {
+  background: var(--color-danger) !important;
+  color: white;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.ngo-card .bg-red-500:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .ngo-card {
+    overflow-x: auto;
+  }
+  .ngo-card table {
+    min-width: 600px;
+  }
+}

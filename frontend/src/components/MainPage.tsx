@@ -3,11 +3,11 @@ import { Outlet } from "react-router-dom";
 
 export default function MainPage() {
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="main-layout">
       <Navbar />
-      <div className="p-8">
+      <main className="main-content">
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 }
