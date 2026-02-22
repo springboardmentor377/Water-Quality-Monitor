@@ -1,0 +1,138 @@
+/* ===== Login Page – Water Quality Monitor ===== */
+.login-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(160deg, var(--color-primary) 0%, #075985 50%, #0c4a6e 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-header {
+  text-align: center;
+  color: white;
+  margin-bottom: 28px;
+}
+
+.login-header .logo {
+  font-size: 48px;
+  margin-bottom: 4px;
+}
+
+.login-header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-top: 8px;
+  letter-spacing: -0.02em;
+}
+
+.login-header p {
+  font-size: 0.875rem;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+.login-card {
+  background: var(--color-surface-elevated);
+  width: 100%;
+  max-width: 400px;
+  padding: 36px 40px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.login-card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: 28px;
+}
+
+.input-box {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 12px 44px 12px 44px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-box input::placeholder {
+  color: var(--color-text-subtle);
+}
+
+.input-box input:focus {
+  border-color: var(--color-primary-light);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(3, 105, 161, 0.15);
+}
+
+.icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+}
+
+.eye {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: none;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: white;
+  background: var(--color-primary-light);
+  transition: background 0.2s ease;
+  margin-top: 8px;
+}
+
+.login-btn:hover {
+  background: var(--color-primary-hover);
+}
+
+.forgot {
+  margin-top: 18px;
+  font-size: 0.8125rem;
+  color: var(--color-primary-light);
+  cursor: pointer;
+}
+
+.forgot:hover {
+  text-decoration: underline;
+}
+
+.login-footer {
+  position: absolute;
+  bottom: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.75rem;
+}

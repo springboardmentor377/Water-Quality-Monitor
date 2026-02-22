@@ -1,0 +1,118 @@
+/* ===== Navbar – Water Quality Monitor ===== */
+.navbar-container {
+  background: var(--color-surface-elevated);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0;
+  margin-bottom: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, var(--color-primary) 0%, #075985 100%);
+  border-radius: 0;
+  padding: 0 24px;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: none;
+  color: white;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-circle {
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--color-primary);
+  font-size: 24px;
+  font-weight: bold;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.logo-text h1 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.logo-text p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.navbar-center {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar-center b {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.95);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  transition: background 0.2s ease, color 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.nav-btn.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px 20px;
+    gap: 12px;
+  }
+  .navbar-center {
+    width: 100%;
+    order: 3;
+  }
+  .navbar-right {
+    gap: 6px;
+  }
+  .nav-btn {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
+}
