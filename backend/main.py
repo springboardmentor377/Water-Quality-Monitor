@@ -53,3 +53,9 @@ from backend.routers.alerts import router as alerts_router
 
 app.include_router(alerts_router)
 
+
+
+from backend.routers.collaborations import router as collaboration_router
+app.include_router(collaboration_router)
+
+

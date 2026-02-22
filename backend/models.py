@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, TIMESTAMP
+from sqlalchemy import Column, Integer, String, TIMESTAMP,DateTime
 from sqlalchemy.sql import func
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import ForeignKey, Text,Float
@@ -91,6 +91,7 @@ class ReportActionSchema(BaseModel):
     action: str
 
 
+
 class Alert(Base):
     __tablename__ = "alerts"
 
@@ -110,5 +111,28 @@ class Alert(Base):
 class StationReadingCreate(BaseModel):
     parameter: str
     value: float
+
+class Collaboration(Base):
+    __tablename__ = "collaborations"
+
+    id = Column(Integer, primary_key=True, index=True)
+    ngo_name = Column(String, nullable=False)
+    project_name = Column(String, nullable=False)
+    contact_email = Column(String, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+class CollaborationCreate(BaseModel):
+    ngo_name: str
+    project_name: str
+    contact_email: str
+
+class CollaborationResponse(BaseModel):
+    id: int
+    ngo_name: str
+    project_name: str
+    contact_email: str
+
+    class Config:
+        from_attributes = True
 
 

@@ -84,26 +84,49 @@ def create_station_reading(
     )
 
     db.add(reading)
-    db.commit()
-    db.refresh(reading)
+
+    # 🔵 Predictive Alert Logic
     if data.parameter in THRESHOLDS and data.value > THRESHOLDS[data.parameter]:
 
         station = db.query(WaterStation).filter(
-        WaterStation.id == station_id).first()
+            WaterStation.id == station_id
+        ).first()
 
         if station:
             alert = Alert(
-            alert_type="contamination",
-            message=f"{data.parameter} level {data.value} exceeded safe limit {THRESHOLDS[data.parameter]}",
-            location=station.location,
-            station_id=station_id
-        )
+                alert_type="contamination",   # ✔ correct field
+                message=f"{data.parameter} level {data.value} exceeded safe limit {THRESHOLDS[data.parameter]}",
+                location=station.location,
+                station_id=station_id,
+                created_at=datetime.utcnow()   # ✔ correct field
+            )
 
             db.add(alert)
-            db.commit()
+
+    # 🔵 Commit everything once
+    db.commit()
+    db.refresh(reading)
 
     return {
         "message": "Reading added successfully",
         "reading_id": reading.id
+    }
+
+@router.get("/analytics/summary")
+def analytics_summary(db: Session = Depends(get_db)):
+
+    total_stations = db.query(WaterStation).count()
+    total_readings = db.query(StationReading).count()
+    total_alerts = db.query(Alert).count()
+
+    contamination_alerts = db.query(Alert).filter(
+        Alert.alert_type == "contamination"
+    ).count()
+
+    return {
+        "total_stations": total_stations,
+        "total_readings": total_readings,
+        "total_alerts": total_alerts,
+        "contamination_alerts": contamination_alerts
     }
 

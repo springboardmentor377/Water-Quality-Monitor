@@ -5,7 +5,8 @@ import Reports from "./components/Reports";
 import ReportForm from "./components/ReportForm";
 import Alerts from "./components/Alerts";
 import StationHistory from "./components/StationHistory";
-
+import NGODashboard from "./components/NGODashboard";
+import Analytics from "./components/Analytics";
 
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [dashboardView, setDashboardView] = useState("map");
 
+  /* ================= AUTH FUNCTIONS ================= */
 
   const login = async () => {
     if (!email || !password) {
@@ -115,135 +117,136 @@ export default function App() {
     loadUser();
   }, []);
 
-
   /* ================= DASHBOARD ================= */
+
   if (user) {
     return (
       <div className="min-h-screen bg-slate-100">
-        {/* TOP NAVBAR */}
+        {/* NAVBAR */}
         <header className="bg-white border-b shadow-sm px-6 py-3 flex justify-between items-center">
           <h1 className="text-lg font-semibold text-slate-700">
             Water Quality Dashboard
           </h1>
 
           <div className="flex gap-2 flex-wrap">
-            <button
-              onClick={() => setDashboardView("map")}
-              className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300"
-            >
+
+            <button onClick={() => setDashboardView("map")}
+              className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300">
               Map
             </button>
-            <button
-              onClick={() => setDashboardView("stations")}
-              className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300"
-            >
+
+            <button onClick={() => setDashboardView("stations")}
+              className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300">
               Stations
             </button>
-            <button
-              onClick={() => setDashboardView("reports")}
-              className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300"
-            >
+
+            <button onClick={() => setDashboardView("reports")}
+              className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300">
               Reports
             </button>
-            <button
-              onClick={() => setDashboardView("submit")}
-              className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300"
-            >
+
+            <button onClick={() => setDashboardView("submit")}
+              className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300">
               Submit Report
             </button>
 
-            <button
-  onClick={() => setDashboardView("history")}
-  className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300"
->
-  History
-</button>
+
+            <button onClick={() => setDashboardView("alerts")}
+              className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300">
+              Alerts
+            </button>
+
+            {/* History only for NGO, Authority, Admin */}
+            {(user.role === "ngo" ||
+              user.role === "authority" ||
+              user.role === "admin") && (
+              <button
+                onClick={() => setDashboardView("history")}
+                className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300">
+                History
+              </button>
+            )}
+
+            {/* NGO Dashboard only for NGO & Admin */}
+            {(user.role === "ngo" || user.role === "admin") && (
 
             <button
-  onClick={() => setDashboardView("alerts")}
-  className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300"
->
-  Alerts
-</button>
+            onClick={() => setDashboardView("ngo")}
+            className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300">
+            NGO Dashboard
+            </button>
+            )}
 
+             {/* Analytics */}
+            <button
+            onClick={() => setDashboardView("analytics")}
+            className="px-3 py-1 rounded bg-slate-200 hover:bg-slate-300">
+            Analytics
+            </button>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 ml-4">
+              <div className="text-sm text-slate-700">
+                <span className="font-semibold">{user.email}</span>{" "}
+                <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">
+                  {user.role}
+                </span>
+              </div>
 
-  {user && (
-    <div className="text-sm text-slate-700">
-      <span className="font-semibold">{user.email}</span>
-      {" "}
-      <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">
-        {user.role}
-      </span>
-    </div>
-  )}
-
-  <button
-    onClick={logout}
-    className="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600"
-  >
-    Logout
-  </button>
-
-</div>
-
+              <button
+                onClick={logout}
+                className="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600">
+                Logout
+              </button>
+            </div>
 
           </div>
         </header>
 
-        {/* CONTENT */}
+        {/* MAIN CONTENT */}
         <main className="p-6">
           {dashboardView === "map" && <StationMap />}
           {dashboardView === "stations" && <Stations />}
           {dashboardView === "reports" && <Reports />}
-          {dashboardView === "submit" && (<ReportForm setDashboardView={setDashboardView} />)}
-          {dashboardView === "alerts" && (
-         <Alerts
-         key={dashboardView}
-          setDashboardView={setDashboardView}
-         />
-         )}
-
+          {dashboardView === "submit" && (
+            <ReportForm setDashboardView={setDashboardView} />
+          )}
+          {dashboardView === "alerts" && <Alerts />}
           {dashboardView === "history" && <StationHistory />}
-
+          {dashboardView === "ngo" && <NGODashboard />}
+          {dashboardView === "analytics" && <Analytics />}
         </main>
-
       </div>
     );
   }
 
+  /* ================= AUTH PAGE ================= */
 
-  /* ================= AUTH (LOGIN / REGISTER) ================= */
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-100">
       <div className="bg-white w-[420px] rounded-xl shadow-lg p-6">
 
-        {/* Tabs */}
         <div className="flex mb-6 border-b">
           <button
             onClick={() => setActiveTab("login")}
-            className={`w-1/2 py-2 text-center font-medium ${
+            className={`w-1/2 py-2 ${
               activeTab === "login"
                 ? "border-b-2 border-blue-500 text-blue-600"
                 : "text-gray-500"
-            }`}
-          >
+            }`}>
             Login
           </button>
+
           <button
             onClick={() => setActiveTab("register")}
-            className={`w-1/2 py-2 text-center font-medium ${
+            className={`w-1/2 py-2 ${
               activeTab === "register"
                 ? "border-b-2 border-blue-500 text-blue-600"
                 : "text-gray-500"
-            }`}
-          >
+            }`}>
             Register
           </button>
         </div>
 
-        {/* LOGIN FORM */}
         {activeTab === "login" && (
           <div className="space-y-4">
             <input
@@ -260,16 +263,12 @@ export default function App() {
             <button
               onClick={login}
               disabled={loading}
-
-              className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
-
-            >
+              className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
               {loading ? "Signing in..." : "Login"}
             </button>
           </div>
         )}
 
-        {/* REGISTER FORM */}
         {activeTab === "register" && (
           <div className="space-y-3">
             <input
@@ -295,8 +294,7 @@ export default function App() {
             />
             <select
               className="w-full border rounded-lg p-2"
-              onChange={(e) => setRole(e.target.value)}
-            >
+              onChange={(e) => setRole(e.target.value)}>
               <option value="citizen">Citizen</option>
               <option value="ngo">NGO</option>
               <option value="authority">Authority</option>
@@ -305,10 +303,7 @@ export default function App() {
             <button
               onClick={register}
               disabled={loading}
-
-              className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
-
-            >
+              className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
               {loading ? "Creating account..." : "Register"}
             </button>
           </div>
