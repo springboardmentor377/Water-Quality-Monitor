@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI, Depends, HTTPException
 from sqlmodel import SQLModel, Session, create_engine, select
 from models import User
@@ -88,3 +89,4 @@ def profile(token: str):
             }
     except jwt.PyJWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
+
