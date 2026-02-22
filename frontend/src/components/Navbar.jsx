@@ -26,12 +26,20 @@ function Navbar({ onNavigate, onLogout }) {
           Charts
         </button>
 
+<<<<<<< main
+        {/* Admin Only */}
+=======
+>>>>>>> swathi_narsingoji
         {user?.role === "admin" && (
           <button style={btnStyle} onClick={() => onNavigate("stations")}>
             Manage Stations
           </button>
         )}
 
+<<<<<<< main
+        {/* Citizen & NGO */}
+=======
+>>>>>>> swathi_narsingoji
         {(user?.role === "citizen" || user?.role === "ngo") && (
           <>
             <button style={btnStyle} onClick={() => onNavigate("report")}>
@@ -44,6 +52,13 @@ function Navbar({ onNavigate, onLogout }) {
           </>
         )}
 
+<<<<<<< main
+        {/* Authority */}
+        {user?.role === "authority" && (
+          <button style={btnStyle} onClick={() => onNavigate("view")}>
+            All Reports
+          </button>
+=======
         {user?.role === "ngo" && (
           <>
             <button
@@ -60,6 +75,7 @@ function Navbar({ onNavigate, onLogout }) {
               Publish Project
             </button>
           </>
+>>>>>>> swathi_narsingoji
         )}
 
         {user?.role === "authority" && (
@@ -109,4 +125,8 @@ const logoutStyle = {
   cursor: "pointer",
 };
 
+<<<<<<< main
 export default Navbar;
+=======
+export default Navbar;
+>>>>>>> swathi_narsingoji

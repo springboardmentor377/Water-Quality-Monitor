@@ -7,9 +7,12 @@ import Login from "./components/Login";
 import Alerts from "./components/Alerts";
 import StationReadings from "./components/StationReadings";
 import StationForm from "./components/StationForm";
+<<<<<<< main
+=======
 import NgoProjects from "./components/NgoProjects";
 import CreateNgoProject from "./components/CreateNgoProject";
 import Dashboard from "./components/Dashboard";
+>>>>>>> swathi_narsingoji
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -58,12 +61,15 @@ function App() {
       )}
 
       {page === "readings" && <StationReadings />}
+<<<<<<< main
+=======
 
       
 
       {page === "ngo-projects" && <NgoProjects />}
       {page === "create-ngo-project" && <CreateNgoProject />}
       {page === "dashboard" && <Dashboard />}
+>>>>>>> swathi_narsingoji
     </div>
   );
 }
