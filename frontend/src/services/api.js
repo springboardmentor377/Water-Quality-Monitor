@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import axios from "axios";
 import { logout } from "./auth";
 
@@ -95,12 +94,3 @@ api.interceptors.response.use(
 );
 
 export default api;
-=======
-import axios from "axios";
-
-const api = axios.create({
-  baseURL: "http://localhost:8000",
-});
-
-export default api;
->>>>>>> origin/main

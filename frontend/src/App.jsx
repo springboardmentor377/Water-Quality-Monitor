@@ -1,13 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-<<<<<<< HEAD
 import Auth from "./pages/auth";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import MapFullPage from "./pages/MapFullPage";
-=======
-import Auth from "./pages/Auth";
-import Dashboard from "./pages/Dashboard";
->>>>>>> origin/main
 import Reports from "./pages/Reports";
 import ReportForm from "./pages/ReportForm";
 import NGODashboard from "./pages/NGODashboard";
@@ -18,17 +13,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-<<<<<<< HEAD
         {/* Public Route */}
         <Route path="/" element={<Auth />} />
 
         {/* Protected Routes */}
-=======
-        {/* Public */}
-        <Route path="/" element={<Auth />} />
-
-        {/* Citizen / Common */}
->>>>>>> origin/main
         <Route
           path="/dashboard"
           element={
@@ -42,7 +30,6 @@ function App() {
         />
 
         <Route
-<<<<<<< HEAD
           path="/map"
           element={
             <ProtectedRoute>
@@ -55,8 +42,6 @@ function App() {
         />
 
         <Route
-=======
->>>>>>> origin/main
           path="/reports"
           element={
             <ProtectedRoute>
@@ -80,10 +65,6 @@ function App() {
           }
         />
 
-<<<<<<< HEAD
-=======
-        {/* NGO */}
->>>>>>> origin/main
         <Route
           path="/ngo"
           element={
@@ -95,7 +76,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-<<<<<<< HEAD
 
         <Route
           path="/register"
@@ -108,15 +88,9 @@ function App() {
             </ProtectedRoute>
           }
         />
-=======
->>>>>>> origin/main
       </Routes>
     </BrowserRouter>
   );
 }
 
-<<<<<<< HEAD
 export default App;
-=======
-export default App;
->>>>>>> origin/main
