@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * Authentication utilities
  */
@@ -104,3 +105,9 @@ export const isTokenExpiringSoon = () => {
     return false;
   }
 };
+=======
+export const isAuthenticated = () => {
+  const token = localStorage.getItem("token");
+  return !!token;
+};
+>>>>>>> origin/main

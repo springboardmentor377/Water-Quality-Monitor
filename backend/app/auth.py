@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from jose import jwt, JWTError
 from datetime import datetime, timedelta
 from fastapi import Depends, HTTPException, status
@@ -62,3 +63,16 @@ def require_role(allowed_roles: list):
         return current_user
     
     return role_checker
+=======
+from jose import jwt
+from datetime import datetime, timedelta
+
+SECRET_KEY = "SECRET123"
+ALGORITHM = "HS256"
+
+def create_token(data: dict):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(hours=2)
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+>>>>>>> origin/main
